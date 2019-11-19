@@ -1,40 +1,46 @@
 import React from 'react'
-import AddEmployee from './AddEmployee'
-class App extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-        employees: [],
-        isLoading: true
-      };
+import AddItem from './AddItem'
 
-    }
-  
-    componentDidMount() {
-      this.setState({ isLoading:true});
-      fetch('http://localhost:3004/employees')
-      .then(response => response.json())
-      .then(data => this.setState({ employees:data }))
-      .then(() => {this.setState({ isLoading: false })
-      });
-    }
-   
 
-  
-    render()
-    {
-      return(
-        <div>
-        <AddEmployee/>
-            {this.state.isLoading ? <label>Loading...</label>:<label>Loaded {this.state.employees.length} elements: </label>}
-            <p>
-              {this.state.employees.map((emp) => <ul key={emp.id}>{ emp.name} {emp.age} {emp.company}  {emp.email} {emp.isActive ? "Active" : "Not Active"}</ul>)}
-            </p>
-            
-            
-        </div>
-      )
-    }
+class App extends React.Component{
+  constructor(props){
+    super(props);
+  this.state={
+    employees: null,
+    isLoading:true,
+    add:false
+  }
+  this.AddButtonClick=this.AddButtonClick.bind(this);
+  this.ComponentCancelProps=this.ComponentCancelProps.bind(this);
 }
 
-export default App
+omponentDidMount(){
+  fetch('http://localhost:3004//employees')
+  .then(respones => response.json())
+  .then(data =>this.setState({employees:data}))
+  .then(()=>this.setState({isLoading:false}));  
+
+}
+  AddButtonClick()
+  {
+      this.setState({add:true});
+  }
+  
+  ComponentCancelProps()
+  {
+      this.setState({add:false});
+  }
+  render(){
+    return(
+  <div>
+  {this.state.isLoading ? <label>Loading...</label>:<label>data loaded</label>}
+  {!this.state.isLoading && !this.state.add? <button onClick={this.AddButtonClick}>Add employee</button>: null}
+  {!this.state.isLoading && this.state.add? <AddItem CancelProps={this.ComponentCancelProps} /> : null}
+  </div>  
+
+)
+}
+}
+export default App 
+
+
