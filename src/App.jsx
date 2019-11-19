@@ -1,46 +1,46 @@
 import React from 'react'
-import AddItem from './AddItem'
-
-
-class App extends React.Component{
-  constructor(props){
-    super(props);
-  this.state={
-    employees: null,
-    isLoading:true,
-    add:false
-  }
-  this.AddButtonClick=this.AddButtonClick.bind(this);
-  this.ComponentCancelProps=this.ComponentCancelProps.bind(this);
-}
-
-omponentDidMount(){
-  fetch('http://localhost:3004//employees')
-  .then(respones => response.json())
-  .then(data =>this.setState({employees:data}))
-  .then(()=>this.setState({isLoading:false}));  
-
-}
-  AddButtonClick()
-  {
-      this.setState({add:true});
-  }
+import AddEmployee from './AddEmployee'
+class App extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        employees: [],
+        isLoading: true,
+        isSaving:false
+      };
+      this.handleSaving=this.handleSaving.bind(this);
+    }
   
-  ComponentCancelProps()
-  {
-      this.setState({add:false});
-  }
-  render(){
-    return(
-  <div>
-  {this.state.isLoading ? <label>Loading...</label>:<label>data loaded</label>}
-  {!this.state.isLoading && !this.state.add? <button onClick={this.AddButtonClick}>Add employee</button>: null}
-  {!this.state.isLoading && this.state.add? <AddItem CancelProps={this.ComponentCancelProps} /> : null}
-  </div>  
+    componentDidMount() {
+      this.setState({ isLoading:true});
+      fetch('http://localhost:3004/employees')
+      .then(response => response.json())
+      .then(data => this.setState({ employees:data }))
+      .then(() => {this.setState({ isLoading: false })});
+    }
+   
+    handleSaving()
+    {
+        this.setState((prevState) => ({
+            isSaving: !prevState.isSaving
+        })); 
 
-)
+    }
+  
+    render()
+    {
+      return(
+        <div>
+        <AddEmployee saving={this.handleSaving}/>
+            {this.state.isLoading ? <a>{ this.state.isSaving ?<label>Saving...</label> : <label>Loading...</label>}</a>:<label>Loaded {this.state.employees.length} elements: </label>}
+            <p>
+              {this.state.employees.map((emp) => <ul key={emp.id}>{ emp.name} {emp.age} {emp.company}  {emp.email} {emp.isActive ? "Active" : "Not Active"}</ul>)}
+            </p>
+            
+            
+        </div>
+      )
+    }
 }
-}
-export default App 
 
-
+export default App
