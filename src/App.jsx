@@ -1,11 +1,11 @@
 import React from 'react'
+import AddEmployee from './AddEmployee'
 class App extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
         employees: [],
-        isLoading: true,
-
+        isLoading: true
       };
 
     }
@@ -18,18 +18,20 @@ class App extends React.Component {
       .then(() => {this.setState({ isLoading: false })
       });
     }
+   
 
   
     render()
     {
       return(
         <div>
+        <AddEmployee/>
             {this.state.isLoading ? <label>Loading...</label>:<label>Loaded {this.state.employees.length} elements: </label>}
             <p>
               {this.state.employees.map((emp) => <ul key={emp.id}>{ emp.name} {emp.age} {emp.company}  {emp.email} {emp.isActive ? "Active" : "Not Active"}</ul>)}
             </p>
             
-
+            
         </div>
       )
     }
