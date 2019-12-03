@@ -37,7 +37,7 @@ class PageEmployee extends React.Component {
               "company": this.state.nompany,
               "email": this.state.email})})
            //  .then( window.location.reload(false))
-             .then(this.props.history.push("/"));
+             .then(() => this.props.history.push("/"));
     }
     
     inputChangeHandler = (event) => {
