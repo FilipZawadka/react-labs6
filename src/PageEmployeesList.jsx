@@ -1,4 +1,10 @@
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
 
 class PageEmployeesList extends React.Component {
   constructor(props) {
@@ -6,7 +12,6 @@ class PageEmployeesList extends React.Component {
       this.state = {
         employees: [],
         isLoading: true,
-
       };
     }
   
@@ -24,6 +29,14 @@ class PageEmployeesList extends React.Component {
     {
       return(
         <div>
+          <Link to="/new">
+          <button>
+              Create a new employee
+          </button>   
+        </Link>
+
+        <br/><br/>
+        
             {this.state.isLoading ?  <label>Loading...</label>:<label>Loaded {this.state.employees.length} elements: </label>}
             {this.state.employees.map((emp) => <ul key={emp.id}>{ emp.name} {emp.age} {emp.company}  {emp.email} {emp.isActive ? "Active" : "Not Active"}</ul>)}
         </div>

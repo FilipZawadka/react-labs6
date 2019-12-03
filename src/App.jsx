@@ -12,17 +12,17 @@ class App extends React.Component {
     render()
     {
       return(
-            <Router>
-              <Switch>
-                <Route exact path="/">
-                  <PageEmployeesList></PageEmployeesList>
-                </Route>
-                <Route exact path="/new">
-                <PageEmployee></PageEmployee>
-                </Route>
-              </Switch>
-            </Router>
-       )
+  <Router>
+    <Switch>
+      <Route exact path="/">
+         <PageEmployeesList></PageEmployeesList>
+      </Route>
+      <Route exact path="/new">
+       <PageEmployee></PageEmployee>
+      </Route>
+    </Switch>
+  </Router>
+      )
     }
 }
 
