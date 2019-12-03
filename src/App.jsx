@@ -12,25 +12,18 @@ class App extends React.Component {
     render()
     {
       return(
-        <div>
-        <PageEmployee></PageEmployee>
-        <PageEmployeesList></PageEmployeesList>
-      </div>
-      )
+            <Router>
+              <Switch>
+                <Route exact path="/">
+                  <PageEmployeesList></PageEmployeesList>
+                </Route>
+                <Route exact path="/new">
+                <PageEmployee></PageEmployee>
+                </Route>
+              </Switch>
+            </Router>
+       )
     }
 }
 
 export default App
-/*
-  <Router>
-    <Switch>
-      <Route exact path="/">
-         <PageEmployeesList></PageEmployeesList>
-      </Route>
-      <Route exact path="/new">
-       <PageEmployee></PageEmployee>
-      </Route>
-    </Switch>
-  </Router>
-
-*/
