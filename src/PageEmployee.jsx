@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  withRouter,
   Link
 } from "react-router-dom"
 class PageEmployee extends React.Component {
@@ -35,7 +36,8 @@ class PageEmployee extends React.Component {
               "name": this.state.name,
               "company": this.state.nompany,
               "email": this.state.email})})
-             .then( window.location.reload(false))
+           //  .then( window.location.reload(false))
+             .then(this.props.history.push("/"));
     }
     
     inputChangeHandler = (event) => {
